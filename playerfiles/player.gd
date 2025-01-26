@@ -168,7 +168,7 @@ func _physics_process(delta: float) -> void:
 	
 	if not state == PlayerState.THROW:
 		if is_on_floor():
-			if abs(velocity.x) < 50:
+			if abs(velocity.x) < 50: 
 				state = PlayerState.IDLE
 			else: 
 				if direction:
