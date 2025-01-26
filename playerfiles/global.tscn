@@ -1,0 +1,75 @@
+[gd_scene load_steps=9 format=3 uid="uid://bddo4mldfb7f6"]
+
+[ext_resource type="Script" path="res://playerfiles/global.gd" id="1_wuq84"]
+[ext_resource type="Shader" path="res://playerfiles/stickmanplayershader.gdshader" id="2_q18vh"]
+[ext_resource type="Texture2D" uid="uid://rx27huy1g8j5" path="res://playerfiles/arrow.png" id="3_3d255"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m1pa7"]
+shader = ExtResource("2_q18vh")
+shader_parameter/original_colors = PackedColorArray(1, 0, 0, 1, 0, 1, 0, 1)
+shader_parameter/replace_colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_44kfo"]
+atlas = ExtResource("3_3d255")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_43afn"]
+atlas = ExtResource("3_3d255")
+region = Rect2(0, 0, 64, 59)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ugdj"]
+atlas = ExtResource("3_3d255")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nuwbx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_44kfo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_43afn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_44kfo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_43afn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_44kfo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_43afn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ugdj")
+}],
+"loop": false,
+"name": &"animation",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ugdj")
+}],
+"loop": false,
+"name": &"star",
+"speed": 0.0
+}]
+
+[node name="Global" type="Node"]
+script = ExtResource("1_wuq84")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(0, -16)
+position_smoothing_enabled = true
+
+[node name="Arrow" type="AnimatedSprite2D" parent="."]
+z_index = 4096
+material = SubResource("ShaderMaterial_m1pa7")
+sprite_frames = SubResource("SpriteFrames_nuwbx")
+animation = &"animation"
+autoplay = "star"
+frame = 6
+frame_progress = 1.0

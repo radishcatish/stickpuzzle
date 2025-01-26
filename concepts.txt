@@ -1,0 +1,10 @@
+stickmen with transparent heads can store liquids or objects inside
+
+2 carrying states: holding and piggybacking. piggybacking is for awake stickmen, whom of which can jump off midair.
+you can switch control to said stickman and have partial control over the piggybacked stickman, but pressing jump makes you
+jump off the piggybacked stickman
+
+stickmen can get knocked out, in which they have to be carried. can be brung to a healing station to awaken them
+
+stickmen can only go on touch blocks of their color, or NOT go through striped blocks of their color.
+blocks can have multiple colors

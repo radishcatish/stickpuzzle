@@ -1,0 +1,94 @@
+[gd_scene load_steps=11 format=3 uid="uid://djs66glo30egn"]
+
+[ext_resource type="PackedScene" uid="uid://dg54juhrcam7k" path="res://playerfiles/player.tscn" id="1_7mj3b"]
+[ext_resource type="PackedScene" uid="uid://cgfy7ynj7usi3" path="res://scn/box.tscn" id="2_gu4e0"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_qgtbn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_64qwr"]
+size = Vector2(270, 20)
+
+[sub_resource type="Gradient" id="Gradient_dccgv"]
+colors = PackedColorArray(0.529412, 0.529412, 0.529412, 1, 0.784314, 0.784314, 0.784314, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_77ieo"]
+gradient = SubResource("Gradient_dccgv")
+repeat = 2
+
+[sub_resource type="Gradient" id="Gradient_l4wjq"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.501407, 0.501406, 0.501406, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_tvvpw"]
+gradient = SubResource("Gradient_l4wjq")
+
+[sub_resource type="Gradient" id="Gradient_evdjy"]
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hh2er"]
+gradient = SubResource("Gradient_evdjy")
+fill_to = Vector2(0, 1)
+
+[node name="level" type="Node2D"]
+
+[node name="players" type="Node" parent="."]
+
+[node name="player0" parent="players" instance=ExtResource("1_7mj3b")]
+position = Vector2(278, 227)
+
+[node name="player1" parent="players" instance=ExtResource("1_7mj3b")]
+position = Vector2(361, 225)
+outline_color = Color(0, 0, 1, 1)
+
+[node name="player2" parent="players" instance=ExtResource("1_7mj3b")]
+position = Vector2(418, 226)
+outline_color = Color(0, 1, 0, 1)
+
+[node name="player3" parent="players" instance=ExtResource("1_7mj3b")]
+position = Vector2(474, 227)
+outline_color = Color(0, 1, 1, 1)
+
+[node name="player4" parent="players" instance=ExtResource("1_7mj3b")]
+position = Vector2(310, 118)
+outline_color = Color(1, 1, 0, 1)
+
+[node name="player5" parent="players" instance=ExtResource("1_7mj3b")]
+position = Vector2(159, 116)
+outline_color = Color(1, 0, 1, 1)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(314, 285)
+shape = SubResource("WorldBoundaryShape2D_qgtbn")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(227, 165)
+shape = SubResource("RectangleShape2D_64qwr")
+one_way_collision = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -745
+texture_repeat = 2
+position = Vector2(-128, 14)
+texture = SubResource("GradientTexture2D_77ieo")
+region_enabled = true
+region_rect = Rect2(-7146.19, -5086.29, 20066.6, 14980.2)
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprite2D"]
+top_level = true
+z_index = -745
+texture_repeat = 2
+position = Vector2(-182, 7774)
+texture = SubResource("GradientTexture1D_tvvpw")
+region_enabled = true
+region_rect = Rect2(-7146.19, -5086.29, 20066.6, 14980.2)
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprite2D/Sprite2D"]
+z_index = 270
+position = Vector2(409, -7598)
+scale = Vector2(4.21875, 0.65625)
+texture = SubResource("GradientTexture2D_hh2er")
+
+[node name="Box" parent="." instance=ExtResource("2_gu4e0")]
+position = Vector2(158, 217)

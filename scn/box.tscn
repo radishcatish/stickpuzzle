@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://cgfy7ynj7usi3"]
+
+[ext_resource type="Script" path="res://scr/box.gd" id="1_v3umj"]
+[ext_resource type="Texture2D" uid="uid://q725cwh0m6xy" path="res://img/box.png" id="1_ydrgw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_51ky4"]
+size = Vector2(22, 23.375)
+
+[node name="Small Box" type="CharacterBody2D"]
+collision_layer = 0
+script = ExtResource("1_v3umj")
+
+[node name="Box" type="Sprite2D" parent="."]
+position = Vector2(0, -12)
+texture = ExtResource("1_ydrgw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -12)
+shape = SubResource("RectangleShape2D_51ky4")
+one_way_collision = true
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -12)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(1.5, 1.5)
+shape = SubResource("RectangleShape2D_51ky4")

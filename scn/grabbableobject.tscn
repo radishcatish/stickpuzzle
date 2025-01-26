@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://jmptnc2pxl0h"]
+
+[ext_resource type="Script" path="res://scr/grabbableobject.gd" id="1_jwlbt"]
+
+[node name="Grabbable Object Code" type="Node"]
+script = ExtResource("1_jwlbt")

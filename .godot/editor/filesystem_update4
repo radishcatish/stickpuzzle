@@ -1,0 +1,9 @@
+res://playerfiles/player.tscn
+res://playerfiles/stickmanplayershader.gdshader
+res://level.tscn
+res://playerfiles/global.tscn
+res://scn/box.tscn
+res://playerfiles/player.gd
+res://playerfiles/global.gd
+res://scr/box.gd
+res://scr/grabbableobject.gd
