@@ -34,7 +34,25 @@ fill_to = Vector2(0, 1)
 [node name="players" type="Node" parent="."]
 
 [node name="player0" parent="players" instance=ExtResource("1_7mj3b")]
-position = Vector2(278, 227)
+position = Vector2(-232, 104)
+
+[node name="player6" parent="players" instance=ExtResource("1_7mj3b")]
+position = Vector2(59, 229)
+
+[node name="player7" parent="players" instance=ExtResource("1_7mj3b")]
+position = Vector2(242, 109)
+
+[node name="player8" parent="players" instance=ExtResource("1_7mj3b")]
+position = Vector2(-112, 170)
+
+[node name="player9" parent="players" instance=ExtResource("1_7mj3b")]
+position = Vector2(-14, 173)
+
+[node name="player10" parent="players" instance=ExtResource("1_7mj3b")]
+position = Vector2(356, 115)
+
+[node name="player11" parent="players" instance=ExtResource("1_7mj3b")]
+position = Vector2(199, 244)
 
 [node name="player1" parent="players" instance=ExtResource("1_7mj3b")]
 position = Vector2(361, 225)
@@ -45,7 +63,7 @@ position = Vector2(418, 226)
 outline_color = Color(0, 1, 0, 1)
 
 [node name="player3" parent="players" instance=ExtResource("1_7mj3b")]
-position = Vector2(474, 227)
+position = Vector2(678, 219)
 outline_color = Color(0, 1, 1, 1)
 
 [node name="player4" parent="players" instance=ExtResource("1_7mj3b")]
@@ -91,4 +109,4 @@ scale = Vector2(4.21875, 0.65625)
 texture = SubResource("GradientTexture2D_hh2er")
 
 [node name="Box" parent="." instance=ExtResource("2_gu4e0")]
-position = Vector2(158, 217)
+position = Vector2(-232, 224)

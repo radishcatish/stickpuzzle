@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://bddo4mldfb7f6"]
+[gd_scene load_steps=18 format=3 uid="uid://bddo4mldfb7f6"]
 
 [ext_resource type="Script" path="res://playerfiles/global.gd" id="1_wuq84"]
+[ext_resource type="AudioStream" uid="uid://dppr5v4jl0npe" path="res://snd/test.sfxr" id="2_01cxf"]
 [ext_resource type="Shader" path="res://playerfiles/stickmanplayershader.gdshader" id="2_q18vh"]
 [ext_resource type="Texture2D" uid="uid://rx27huy1g8j5" path="res://playerfiles/arrow.png" id="3_3d255"]
+[ext_resource type="Texture2D" uid="uid://olq1d5oluy4x" path="res://img/mouse.png" id="4_7e2mw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_m1pa7"]
 shader = ExtResource("2_q18vh")
@@ -58,18 +60,88 @@ animations = [{
 "speed": 0.0
 }]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7li0u"]
+shader = ExtResource("2_q18vh")
+shader_parameter/original_colors = PackedColorArray(1, 0, 0, 1, 0, 1, 0, 1)
+shader_parameter/replace_colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wk500"]
+atlas = ExtResource("4_7e2mw")
+region = Rect2(31, 0, 31, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cic1g"]
+atlas = ExtResource("4_7e2mw")
+region = Rect2(62, 0, 31, 29)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y7ghd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wk500")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cic1g")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nbqkj"]
+atlas = ExtResource("4_7e2mw")
+region = Rect2(31, 29, 31, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_04rm1"]
+atlas = ExtResource("4_7e2mw")
+region = Rect2(62, 29, 31, 29)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vi5x2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nbqkj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_04rm1")
+}],
+"loop": false,
+"name": &"default",
+"speed": 0.0
+}]
+
 [node name="Global" type="Node"]
 script = ExtResource("1_wuq84")
+
+[node name="swap" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_01cxf")
+
+[node name="AudioListener2D" type="AudioListener2D" parent="."]
+current = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(0, -16)
 position_smoothing_enabled = true
 
 [node name="Arrow" type="AnimatedSprite2D" parent="."]
-z_index = 4096
+z_index = 4095
 material = SubResource("ShaderMaterial_m1pa7")
 sprite_frames = SubResource("SpriteFrames_nuwbx")
 animation = &"animation"
 autoplay = "star"
 frame = 6
 frame_progress = 1.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="cursor" type="AnimatedSprite2D" parent="CanvasLayer"]
+z_index = 4096
+material = SubResource("ShaderMaterial_7li0u")
+sprite_frames = SubResource("SpriteFrames_y7ghd")
+autoplay = "default"
+frame_progress = 0.37466
+centered = false
+
+[node name="cursorshadow" type="AnimatedSprite2D" parent="CanvasLayer"]
+sprite_frames = SubResource("SpriteFrames_vi5x2")
+frame_progress = 0.13033
+centered = false

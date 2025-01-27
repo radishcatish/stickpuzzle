@@ -7,20 +7,19 @@
 size = Vector2(22, 23.375)
 
 [node name="Small Box" type="CharacterBody2D"]
-collision_layer = 0
+floor_stop_on_slope = false
+floor_max_angle = 0.0
+platform_on_leave = 2
 script = ExtResource("1_v3umj")
 
 [node name="Box" type="Sprite2D" parent="."]
-position = Vector2(0, -12)
 texture = ExtResource("1_ydrgw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_51ky4")
 one_way_collision = true
 
 [node name="Area2D" type="Area2D" parent="."]
-position = Vector2(0, -12)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 scale = Vector2(1.5, 1.5)

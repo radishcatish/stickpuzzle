@@ -1,0 +1,17 @@
+[remap]
+
+importer="com.timothyqiu.gdfxr.importer"
+type="AudioStreamWAV"
+uid="uid://ctx1jl11peryr"
+path="res://.godot/imported/jumpholding.sfxr-0f81a24d6dcef39d3b58ef78b2e62032.sample"
+
+[deps]
+
+source_file="res://snd/jumpholding.sfxr"
+dest_files=["res://.godot/imported/jumpholding.sfxr-0f81a24d6dcef39d3b58ef78b2e62032.sample"]
+
+[params]
+
+loop=false
+bit_depth=0
+sample_rate=0

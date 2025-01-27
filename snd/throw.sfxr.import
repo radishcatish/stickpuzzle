@@ -1,0 +1,17 @@
+[remap]
+
+importer="com.timothyqiu.gdfxr.importer"
+type="AudioStreamWAV"
+uid="uid://b2q6tw7v1hp1e"
+path="res://.godot/imported/throw.sfxr-27fac9562bbb302e75025f4ce6377db4.sample"
+
+[deps]
+
+source_file="res://snd/throw.sfxr"
+dest_files=["res://.godot/imported/throw.sfxr-27fac9562bbb302e75025f4ce6377db4.sample"]
+
+[params]
+
+loop=false
+bit_depth=0
+sample_rate=0
