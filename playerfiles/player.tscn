@@ -1,9 +1,10 @@
-[gd_scene load_steps=54 format=3 uid="uid://dg54juhrcam7k"]
+[gd_scene load_steps=55 format=3 uid="uid://dg54juhrcam7k"]
 
 [ext_resource type="Script" path="res://playerfiles/player.gd" id="1_fbukr"]
 [ext_resource type="Texture2D" uid="uid://b244q41piber3" path="res://playerfiles/stickman.png" id="2_al1wn"]
 [ext_resource type="AudioStream" uid="uid://b3qt7temf2pd" path="res://snd/land.sfxr" id="3_c6g2h"]
 [ext_resource type="AudioStream" uid="uid://dxmyf0met3w17" path="res://snd/jump.sfxr" id="3_d3x2r"]
+[ext_resource type="AudioStream" uid="uid://dr0crxgkced25" path="res://snd/pickupthing.sfxr" id="4_3g7n8"]
 [ext_resource type="AudioStream" uid="uid://c0qp1ovde8d22" path="res://snd/step.sfxr" id="4_15gln"]
 [ext_resource type="AudioStream" uid="uid://b2q6tw7v1hp1e" path="res://snd/throw.sfxr" id="5_2nxin"]
 [ext_resource type="AudioStream" uid="uid://ctx1jl11peryr" path="res://snd/jumpholding.sfxr" id="7_7y7t6"]
@@ -417,6 +418,9 @@ shape = SubResource("RectangleShape2D_u10d5")
 
 [node name="land" type="AudioStreamPlayer2D" parent="Node"]
 stream = ExtResource("3_c6g2h")
+
+[node name="pickup" type="AudioStreamPlayer2D" parent="Node"]
+stream = ExtResource("4_3g7n8")
 
 [node name="step" type="AudioStreamPlayer2D" parent="Node"]
 stream = ExtResource("4_15gln")

@@ -1,6 +1,6 @@
+AudioStreamPlayer2D
 CharacterBody2D
 AudioListener2D
-AudioStreamPlayer2D
 Node
 AnimatedSprite2D
 CanvasLayer

@@ -12,6 +12,7 @@ class_name Player
 @onready var snd_jump: AudioStreamPlayer2D = $Node/jump
 @onready var snd_jumpholding: AudioStreamPlayer2D = $Node/jumpholding
 @onready var snd_skid: AudioStreamPlayer2D = $Node/skid
+@onready var snd_pickup: AudioStreamPlayer2D = $Node/pickup
 
 
 @export var opaque_head   := true

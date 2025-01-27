@@ -1,0 +1,17 @@
+[remap]
+
+importer="com.timothyqiu.gdfxr.importer"
+type="AudioStreamWAV"
+uid="uid://cpnp187n56rw5"
+path="res://.godot/imported/heavy_land.sfxr-68f1084b8e7d419a6ebd526e7b60f3b4.sample"
+
+[deps]
+
+source_file="res://snd/heavy_land.sfxr"
+dest_files=["res://.godot/imported/heavy_land.sfxr-68f1084b8e7d419a6ebd526e7b60f3b4.sample"]
+
+[params]
+
+loop=false
+bit_depth=0
+sample_rate=0

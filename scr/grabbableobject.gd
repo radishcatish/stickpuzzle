@@ -22,7 +22,10 @@ func _click_to_grab(_viewport: Node, event: InputEvent, _shape_idx: int) -> void
 			return
 		if global.cur_plr.position.distance_squared_to(self.position) <= 2000:
 			being_held = true
+			if not (self is Player):
+				self.collision_shape_2d.disabled = true
 			global.cur_plr.held_object = self
 			get_viewport().set_input_as_handled()
+			global.cur_plr.snd_pickup.play()
 			global.cur_plr.hey_just_picked_this_shit_up_dont_throw_it_please = true
 	
