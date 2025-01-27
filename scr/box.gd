@@ -4,6 +4,7 @@ extends Grabbable
 func _ready() -> void:
 	super()
 	hold_height = -48
+	heaviness = -2
 	sliding.pitch_scale = .9
 	
 @onready var land: AudioStreamPlayer2D = $land

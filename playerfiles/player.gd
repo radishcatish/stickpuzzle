@@ -21,6 +21,7 @@ class_name Player
 @export var outline_color := Color(1, 0, 0)
 @export var head_color    := Color(1, 1, 1, int(opaque_head))
 
+
 var has_control := false
 var friction: float
 var accel: float = 3
@@ -37,6 +38,7 @@ const JUMP_VELOCITY = -400.0
 const STICKMANPLAYERSHADER = preload("res://playerfiles/stickmanplayershader.gdshader")
 @onready var mat := ShaderMaterial.new()
 func _ready() -> void:
+	heaviness = -2
 	super()
 	direction = randi_range(0, 1)
 	if direction == 0:
@@ -78,7 +80,10 @@ func _process(_delta: float) -> void:
 		PlayerState.HELD:
 			collision_top.disabled = true
 			sprite.rotation = 0
-			sprite.play("held")
+			if has_arms:
+				sprite.play("held")
+			else:
+				sprite.play("1_held")
 			area_2d.monitoring = false
 			area_2d.monitorable = false
 			
@@ -95,13 +100,24 @@ func _process(_delta: float) -> void:
 				if force_crawl and not has_control or (Input.is_action_pressed("down") and has_control):
 					collision_top.disabled = true
 					force_crawl = true
-					sprite.play("crouch")
+					if has_arms:
+						sprite.play("crouch")
+					else:
+						sprite.play("1_crouch")
 				elif Input.is_action_pressed("up") and has_control:
 					sprite.play("lookup")
 					force_crawl = false
+					if has_arms:
+						sprite.play("lookup")
+					else:
+						sprite.play("1_lookup")
 				else:
 					force_crawl = false
-					sprite.play("idle")
+					if has_arms:
+						sprite.play("idle")
+					else:
+						sprite.play("1_idle")
+
 
 
 		PlayerState.WALK:
@@ -110,16 +126,21 @@ func _process(_delta: float) -> void:
 			if held_object:
 				area_2d.monitoring = false
 				area_2d.monitorable = false
-				sprite.play("holdingwalk", abs(self.velocity.x) / 120)
+				sprite.play("holdingwalk", abs(self.velocity.x) / 12)
 			else:
-				
 				if Input.is_action_pressed("down") and has_control:
 					collision_top.disabled = true
-					sprite.play("crawl", abs(self.velocity.x) / 60)
+					if has_arms:
+						sprite.play("crawl", abs(self.velocity.x) / 60)
+					else:
+						sprite.play("1_crawl", abs(self.velocity.x) / 60)
 				else:
 					area_2d.monitoring = true
 					area_2d.monitorable = true
-					sprite.play("walk", abs(self.velocity.x) / 60)
+					if has_arms:
+						sprite.play("walk", abs(self.velocity.x) / 12)
+					else:
+						sprite.play("1_walk", abs(self.velocity.x) / 12)
 
 		PlayerState.MIDAIR:
 			collision_top.disabled = false
@@ -132,16 +153,23 @@ func _process(_delta: float) -> void:
 				area_2d.monitoring = true
 				area_2d.monitorable = true
 				sprite.rotation = (velocity.x / 720) * .9
-				sprite.play("midair")
+				if has_arms:
+					sprite.play("midair")
+				else:
+					sprite.play("1_midair")
 				sprite.frame = clamp(velocity.y / 100 + 2, 0, 4)
 			
 		PlayerState.SKID:
 			sprite.rotation = 0
-			if not held_object and not Input.is_action_pressed("down"):
+			if has_arms:
 				sprite.play("skid")
-				collision_top.disabled = false
-				if not snd_skid.playing:
-					snd_skid.play()
+			else:
+				sprite.play("1_skid")
+			collision_top.disabled = false
+			if held_object:
+				sprite.play("holdingskid")
+			if not snd_skid.playing:
+				snd_skid.play()
 			
 				
 		PlayerState.THROW:
@@ -152,12 +180,6 @@ func _process(_delta: float) -> void:
 				state = PlayerState.NONE
 			area_2d.monitoring = false
 			area_2d.monitorable = false
-
-			
-		PlayerState.CRAWLING:
-			collision_top.disabled = true
-			sprite.rotation = 0
-			sprite.play("crawl")
 			
 		PlayerState.WAITING_UP:
 			collision_top.disabled = false
@@ -172,6 +194,7 @@ func _process(_delta: float) -> void:
 	
 var last_on_floor := false
 var just_now_on_floor := false
+var closest: Node
 func _physics_process(delta: float) -> void:
 	just_now_on_floor = is_on_floor() and not last_on_floor
 	last_on_floor = is_on_floor()
@@ -200,17 +223,16 @@ func _physics_process(delta: float) -> void:
 			if abs(velocity.x) < 50: 
 				state = PlayerState.IDLE
 			else: 
-				if direction:
-					state = PlayerState.WALK
-				else:
-					state = PlayerState.SKID
+				state = PlayerState.WALK
+				
+
 			
 			if Input.is_action_just_pressed("jump")  and has_control:
 				velocity.y += JUMP_VELOCITY + float(has_water) * 80
 				snd_jump.pitch_scale = randf_range(0.8, 1.2)
 				snd_jump.play()
 				
-			if is_skidding and not state in [PlayerState.CROUCHING,PlayerState.CRAWLING]:
+			if is_skidding and not Input.is_action_pressed("down"):
 				accel = 3
 				state = PlayerState.SKID
 			
@@ -265,6 +287,8 @@ func _physics_process(delta: float) -> void:
 		velocity.x *= .5 - (float(has_water) / 10)
 	else:
 		velocity.x *= .9 - (float(has_water) / 10)
+		if held_object:
+			velocity.x *= 1 - held_object.heaviness / 10
 
 	accel = 100
 	if held_object: velocity.x *= .8
@@ -275,13 +299,9 @@ func _physics_process(delta: float) -> void:
 
 func interact():
 	if not (area_2d.monitoring or has_control): return
-		#if overlapping.is_empty():
-		#if Input.is_action_pressed("down"):
-			#state = PlayerState.WAITING_DOWN
-		#elif Input.is_action_pressed("up"):
-			#state = PlayerState.WAITING_UP
 
-	var closest: Node
+
+	
 	var closest_dist_sqr := INF
 	for node: Node in get_tree().get_nodes_in_group("Grabbable"):
 		if node == self:
@@ -290,6 +310,13 @@ func interact():
 		if dist_sqr < closest_dist_sqr:
 			closest = node
 			closest_dist_sqr = dist_sqr
+	
+	
+
+	if Input.is_action_pressed("down"):
+		state = PlayerState.WAITING_DOWN
+	elif Input.is_action_pressed("up"):
+		state = PlayerState.WAITING_UP
 	
 	
 	
@@ -303,7 +330,7 @@ func clicked_on(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 
 
 func _on_anim_frame_changed() -> void:
-	if sprite.animation == "walk" or sprite.animation == "holdingwalk":
+	if state == PlayerState.WALK and not Input.is_action_pressed("down"):
 		if sprite.frame == 3:
 			snd_step.pitch_scale = randf_range(0.8, 1)
 			snd_step.play()

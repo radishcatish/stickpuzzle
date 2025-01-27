@@ -2,6 +2,7 @@ extends CharacterBody2D
 class_name Grabbable
 var being_held := false
 var hold_height: int
+@onready var heaviness: float = 0
 var cursor_hovered := false
 var just_clicked_on := false
 var last_being_held := false
@@ -18,7 +19,7 @@ func _mouse_entered() -> void: cursor_hovered = true
 func _mouse_exited() -> void: cursor_hovered = false
 func _click_to_grab(_viewport: Node, event: InputEvent, _shape_idx: int) -> void: 
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT and not being_held:
-		if self == global.cur_plr or global.cur_plr.held_object or global.cur_plr.being_held or (self is Player and self.held_object):
+		if self == global.cur_plr or global.cur_plr.held_object or global.cur_plr.being_held or  not global.cur_plr.has_arms or (self is Player and self.held_object):
 			return
 		if global.cur_plr.position.distance_squared_to(self.position) <= 2000:
 			being_held = true
